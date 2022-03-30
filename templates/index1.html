@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+       #userInput {
+       margin-left: auto;
+       margin-top: 40px;
+       attachment
+        
+        }
+  <title>ChatBot</title>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+
+      body {
+        background-image:
+        url('https://media-exp1.licdn.com/dms/image/C4D1BAQGF_2FbH0Vcww/company-background_10000/0/1581669045518?e=2147483647&v=beta&t=tFRA4s8PhJGWqsyd6quopnanFIeG-99ua5Qtk6pmooY');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: monospace;
+      }
+      h1 {
+        background-color: #8080ff;
+        color: black;
+        display: inline-block;
+        font-size: 2em;
+        margin: 0;
+        padding: 10px;
+      }
+      .header{width: 100%;}
+      .header img{width: 20%;}
+      .header h2{
+        display: inline;
+      }
+      #chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 40px;
+      }
+      #textInput {
+        width: 100%;
+        border: none;
+        border-bottom: 3px solid black;
+        font-family: monospace;
+        font-size: 20px;
+        
+      }
+      .userText {
+        color: black;
+        font-family: monospace;
+        font-size: 20px;
+        text-align: right;
+        line-height: 30px;
+      }
+      .userText span {
+        background-color: #e699ff;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: black;
+        font-family: monospace;
+        font-size: 20px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #ffdd99;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        margin-top: 60px;
+        border: 1px solid green;
+        
+
+      }
+      .box {
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+     <h2 id="logo" ><a href="/"><img src="https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png" width ="10%" alt="logo"> </a></h2> 
+      <h1>
+        AICTE ChatBot
+      </h1>
+    </center>
+    <div class="box"></div>
+    <div class="boxed">
+      <div>
+        <div id="chatbox">
+          <p class="botText">
+            <span>Hi! I'm ChatBot</span>
+          </p>
+        </div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Enter message here..." />
+        </div>
+      </div>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>
